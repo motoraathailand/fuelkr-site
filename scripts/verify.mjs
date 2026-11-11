@@ -75,7 +75,7 @@ for (const page of ['index.html', 'join.html', 'privacy.html', 'delete-account.h
     if (page === 'join.html') {
       ok(r.text.includes('MOTOR AA'), `${tag}: MOTOR AA missing`);
       ok(JSON.stringify(r.steps) === JSON.stringify([cfg.groupUrl, cfg.optInUrl, cfg.installUrl]), `${tag}: step links ${r.steps}`);
-      
+      ok(!/faqH|data-t="q\d|자주 묻는|Questions|FAQPage|#faq/i.test(r.html), `${tag}: FAQ section present (owner rule 2026-11-11: none on join pages)`);
       ok(!cfg.optInLive === (await p.evaluate(() => !!document.querySelector('#c2[data-locked]') && !document.querySelector('#pend').hidden)), `${tag}: optInLive lock state`);
       ok(r.html.includes(cfg.groupEmail) || r.text.includes('Gmail'), `${tag}: gmail note`);
       if (w === 390) { const fold = await p.evaluate(() => { const c = document.querySelector('#c3').getBoundingClientRect(); return c.bottom; }); ok(fold <= 844, `${tag}: step 3 below the fold (${fold})`); }
