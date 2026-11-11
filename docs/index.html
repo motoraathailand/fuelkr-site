@@ -18,7 +18,7 @@
 <script>/* decide the language first (no flash): ?lang= (ko|en; any other value, e.g. an old th/zh/hi link, gives English) > saved choice > phone language if Korean (or English) > English. Korean is baked into this file as the no-JS fallback; any other result keeps the page hidden (html.pl) until the script has swapped the text. */
 (function(){var L=["ko","en"],l='en';try{var m=/[?&]lang=(\w\w)/.exec(location.search),s=localStorage.getItem('fkr.site.lang'),a=navigator.languages&&navigator.languages.length?navigator.languages:[navigator.language],p='';if(m)l=L.indexOf(m[1])>-1?m[1]:'en';else if(L.indexOf(s)>-1)l=s;else for(var i=0;i<a.length;i++){p=String(a[i]||'').toLowerCase().split(/[-_]/)[0];if(L.indexOf(p)>-1){l=p;break}}}catch(e){}window.__L=l;document.documentElement.lang=l;document.documentElement.className='js'+(l==='ko'?'':' pl')})();</script>
 <link rel="preload" href="fonts/ibm-plex-sans-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="landing.css?v=74d625b2e9">
+<link rel="stylesheet" href="landing.css?v=5afdebf1fd">
 </head>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
   <linearGradient id="dg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0c635c"/><stop offset="1" stop-color="#14b8a6"/></linearGradient>
