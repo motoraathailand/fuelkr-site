@@ -26,7 +26,7 @@ sub(r'<small data-t="fl1s">', '<small data-t="fl1s">')
 sub(r'<div class="wrap stats-in stg">.*?</div>\n</section>', '<div class="wrap stats-in stg">\n'
     '    <div class="stat rv"><b><span class="cnt" data-to="5">5</span></b><span data-t="st1"></span></div>\n'
     '    <div class="stat rv"><b><span class="cnt" data-to="5">5</span></b><span data-t="st2"></span></div>\n'
-    '    <div class="stat rv"><b><span class="cnt" data-to="5">5</span></b><span data-t="st3"></span></div>\n'
+    '    <div class="stat rv"><b><span class="cnt" data-to="2">2</span></b><span data-t="st3"></span></div>\n'
     '    <div class="stat rv"><b><span class="cnt" data-to="2">2</span></b><span data-t="st4"></span></div>\n'
     '  </div>\n</section>')
 # drop the "free" section
@@ -73,8 +73,8 @@ body = re.sub(r'aria-label="[^"]*"(\s[^>]*data-alt-label=)', r'\1', body)
 body = re.sub(r'aria-label="Google Play[^"]*"', '', body)
 body = re.sub(r'src="img/badges/gp-th.png"', 'src="img/badges/gp-ko.png"', body)
 body = re.sub(r'src="img/badges/as-th.svg"', 'src="img/badges/as-ko.svg"', body)
-body = re.sub(r'(<select id="lang"[^>]*>).*?(</select>)', lambda m: m.group(1)+'<option value="ko" selected>한국어</option><option value="en">English</option><option value="th">ไทย</option><option value="zh">简体中文</option><option value="hi">हिन्दी</option>'+m.group(2), body, flags=re.S)
-if re.search(r'[\u0E00-\u0E7F]', body): print('WARN thai left:', set(re.findall(r'[^<>"]{0,30}[\u0E00-\u0E7F]+[^<>"]{0,20}', body)))
+body = re.sub(r'(<select id="lang"[^>]*>).*?(</select>)', lambda m: m.group(1)+'<option value="ko" selected>한국어</option><option value="en">English</option>'+m.group(2), body, flags=re.S)
+if re.search(r'[\u0E00-\u0E7F\u4E00-\u9FFF\u0900-\u097F]', body): print('WARN thai left:', set(re.findall(r'[^<>"]{0,30}[\u0E00-\u0E7F]+[^<>"]{0,20}', body)))
 open('src/index.template.html', 'w').write(body)
 
 j = open(N + 'join.html').read()
@@ -106,7 +106,7 @@ jb = re.sub(r'(<(\w+)[^>]*\sdata-t="\w+"[^>]*>)[^<]*(</\2>)', r'\1\3', jb)
 jb = re.sub(r'(<select id="lang") aria-label="[^"]*"', r'\1', jb)
 jb = re.sub(r'(<img [^>]*)alt="[^"]*"([^>]*data-alt=)', r'\1alt=""\2', jb)
 jb = jb.replace('<option value="th" selected>', '<option value="th">').replace('<option value="ko">', '<option value="ko" selected>')
-jb = re.sub(r'(<select id="lang"[^>]*>).*?(</select>)', lambda m: m.group(1)+'<option value="ko" selected>한국어</option><option value="en">English</option><option value="th">ไทย</option><option value="zh">简体中文</option><option value="hi">हिन्दी</option>'+m.group(2), jb, flags=re.S)
-if re.search(r'[\u0E00-\u0E7F]', jb): print('WARN join thai left:', set(re.findall(r'[^<>"]{0,30}[\u0E00-\u0E7F]+[^<>"]{0,20}', jb)))
+jb = re.sub(r'(<select id="lang"[^>]*>).*?(</select>)', lambda m: m.group(1)+'<option value="ko" selected>한국어</option><option value="en">English</option>'+m.group(2), jb, flags=re.S)
+if re.search(r'[\u0E00-\u0E7F\u4E00-\u9FFF\u0900-\u097F]', jb): print('WARN join thai left:', set(re.findall(r'[^<>"]{0,30}[\u0E00-\u0E7F]+[^<>"]{0,20}', jb)))
 open('src/join.template.html', 'w').write(jb)
 print('ok')

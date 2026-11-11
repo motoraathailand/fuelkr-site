@@ -9,13 +9,14 @@
 <meta name="theme-color" content="#ffffff">
 <meta name="color-scheme" content="light">
 <link rel="canonical" href="https://motoraathailand.github.io/fuelkr-site/">
-<meta property="og:type" content="website"><meta property="og:site_name" content="주유소를부탁해"><meta property="og:locale" content="ko_KR">
+<meta property="og:type" content="website"><meta property="og:site_name" content="주유소를부탁해"><meta property="og:locale" content="ko_KR"><meta property="og:locale:alternate" content="en_US">
+<link rel="alternate" hreflang="ko" href="https://motoraathailand.github.io/fuelkr-site/?lang=ko"><link rel="alternate" hreflang="en" href="https://motoraathailand.github.io/fuelkr-site/?lang=en"><link rel="alternate" hreflang="x-default" href="https://motoraathailand.github.io/fuelkr-site/">
 <meta property="og:title" content="주유소를부탁해 — 내 주변 주유소, 공식 가격으로 한눈에"><meta property="og:description" content="한국석유공사 오피넷 공식 가격으로 내 주변 주유소를 가까운 순, 저렴한 순으로 비교해요. 지도와 길 안내, 즐겨찾기, 주유 기록, Android Auto까지.">
 <meta property="og:url" content="https://motoraathailand.github.io/fuelkr-site/"><meta property="og:image" content="https://motoraathailand.github.io/fuelkr-site/img/og.png">
 <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="주유소를부탁해 — 내 주변 주유소, 공식 가격으로 한눈에"><meta name="twitter:description" content="한국석유공사 오피넷 공식 가격으로 내 주변 주유소를 가까운 순, 저렴한 순으로 비교해요. 지도와 길 안내, 즐겨찾기, 주유 기록, Android Auto까지.">
 <link rel="icon" href="img/icon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="img/icon-512.png">
-<script>/* decide the language first (no flash): ?lang= > saved choice > phone language (primary subtag) > English. Korean is baked into this file as the no-JS fallback; any other result keeps the page hidden (html.pl) until the script has swapped the text. */
-(function(){var L=["ko","en","th","zh","hi"],l='en';try{var m=/[?&]lang=(\w\w)/.exec(location.search),s=localStorage.getItem('fkr.site.lang'),a=navigator.languages&&navigator.languages.length?navigator.languages:[navigator.language],p='';if(m&&L.indexOf(m[1])>-1)l=m[1];else if(L.indexOf(s)>-1)l=s;else for(var i=0;i<a.length;i++){p=String(a[i]||'').toLowerCase().split(/[-_]/)[0];if(L.indexOf(p)>-1){l=p;break}}}catch(e){}window.__L=l;document.documentElement.lang=l;document.documentElement.className='js'+(l==='ko'?'':' pl')})();</script>
+<script>/* decide the language first (no flash): ?lang= (ko|en; any other value, e.g. an old th/zh/hi link, gives English) > saved choice > phone language if Korean (or English) > English. Korean is baked into this file as the no-JS fallback; any other result keeps the page hidden (html.pl) until the script has swapped the text. */
+(function(){var L=["ko","en"],l='en';try{var m=/[?&]lang=(\w\w)/.exec(location.search),s=localStorage.getItem('fkr.site.lang'),a=navigator.languages&&navigator.languages.length?navigator.languages:[navigator.language],p='';if(m)l=L.indexOf(m[1])>-1?m[1]:'en';else if(L.indexOf(s)>-1)l=s;else for(var i=0;i<a.length;i++){p=String(a[i]||'').toLowerCase().split(/[-_]/)[0];if(L.indexOf(p)>-1){l=p;break}}}catch(e){}window.__L=l;document.documentElement.lang=l;document.documentElement.className='js'+(l==='ko'?'':' pl')})();</script>
 <link rel="preload" href="fonts/ibm-plex-sans-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="landing.css?v=74d625b2e9">
 </head>
@@ -30,7 +31,7 @@
     <a class="logo" href="index.html" aria-label="주유소를부탁해"><svg class="logo-drop" aria-hidden="true"><use href="#drop"/></svg><span>주유소를부탁해</span></a>
     <div class="hd-r">
       <label class="lang"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 12h18M12 3c2.6 2.6 3.8 5.6 3.8 9s-1.2 6.4-3.8 9c-2.6-2.6-3.8-5.6-3.8-9S9.4 5.6 12 3z" fill="none" stroke="currentColor" stroke-width="1.8"/></svg><span class="sr" data-t="lang">언어</span>
-        <select id="lang"  data-alt-label="lang" aria-label="언어"><option value="ko" selected>한국어</option><option value="en">English</option><option value="th">ไทย</option><option value="zh">简体中文</option><option value="hi">हिन्दी</option></select></label>
+        <select id="lang"  data-alt-label="lang" aria-label="언어"><option value="ko" selected>한국어</option><option value="en">English</option></select></label>
       <a class="gp sm" href="join.html?lang=ko"  data-gp aria-label="테스트 참여 Google Play"><svg aria-hidden="true"><use href="#gplay"/></svg><span><small data-t="gpSmall">테스트 참여</small><b>Google Play</b></span></a>
     </div>
   </div>
@@ -77,7 +78,7 @@
   <div class="wrap stats-in stg">
     <div class="stat rv"><b><span class="cnt" data-to="5">5</span></b><span data-t="st1">반경(km)</span></div>
     <div class="stat rv"><b><span class="cnt" data-to="5">5</span></b><span data-t="st2">연료 종류</span></div>
-    <div class="stat rv"><b><span class="cnt" data-to="5">5</span></b><span data-t="st3">언어</span></div>
+    <div class="stat rv"><b><span class="cnt" data-to="2">2</span></b><span data-t="st3">언어</span></div>
     <div class="stat rv"><b><span class="cnt" data-to="2">2</span></b><span data-t="st4">정렬 방식</span></div>
   </div>
 </section>
@@ -156,7 +157,7 @@
       <article class="mcard rv"><span class="ti"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="pop" d="M12 20.500s-7.500-4.600-7.500-10.200A4.300 4.300 0 0 1 12 7.600a4.300 4.300 0 0 1 7.500 2.700c0 5.600-7.500 10.200-7.500 10.200z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></span><h3 data-t="m2t">즐겨찾기</h3><p data-t="m2p">자주 가는 주유소를 저장해 두고 바로 열어요.</p></article>
       <article class="mcard rv"><span class="ti"><svg viewBox="0 0 24 24" aria-hidden="true"><g class="ring"><path d="M6 16.500V11a6 6 0 0 1 12 0v5.500l1.500 2h-15z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M10 21h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></g></svg></span><h3 data-t="m3t">가격 알림</h3><p data-t="m3p">즐겨찾는 주유소 가격이 내리면 앱 안에서 알려 줘요.</p></article>
       <article class="mcard rv"><span class="ti"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="3.500" width="14" height="17" rx="2.500" fill="none" stroke="currentColor" stroke-width="2"/><path class="wr" d="M8.500 9h7M8.500 13h7M8.500 17h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span><h3 data-t="m4t">주유 기록</h3><p data-t="m4p">날짜, 리터, 금액을 적어 두고 달마다 합계를 봐요.</p></article>
-      <article class="mcard rv"><span class="ti"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3 12h18M12 3c2.600 2.600 3.800 5.600 3.800 9s-1.200 6.400-3.800 9c-2.600-2.600-3.800-5.600-3.800-9S9.400 5.600 12 3z" fill="none" stroke="currentColor" stroke-width="2"/></svg></span><h3 data-t="m5t">5개 언어</h3><p data-t="m5p">휴대폰 언어로 열리고, 한국어·영어·태국어·중국어·힌디어로 바꿀 수 있어요.</p></article>
+      <article class="mcard rv"><span class="ti"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3 12h18M12 3c2.600 2.600 3.800 5.600 3.800 9s-1.200 6.400-3.800 9c-2.600-2.600-3.800-5.600-3.800-9S9.400 5.600 12 3z" fill="none" stroke="currentColor" stroke-width="2"/></svg></span><h3 data-t="m5t">한국어·영어</h3><p data-t="m5p">앱을 한국어나 영어로 쓸 수 있고, 언어는 언제든 바꿀 수 있어요.</p></article>
       <article class="mcard rv"><span class="ti"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M9.6 9.4a2.5 2.5 0 0 1 4.9.6c0 1.700-2.500 2.200-2.500 3.800" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="17" r="1.300" fill="currentColor"/></svg></span><h3 data-t="m6t">사용 안내</h3><p data-t="m6p">처음 켜면 실제 화면 위에서 하나씩 알려 주고, 메뉴에서 다시 볼 수 있어요.</p></article>
     </div>
   </div>
@@ -226,7 +227,7 @@
   <span class="dlb dlb-off" role="img"  data-alt-label="asAria" aria-label="App Store — 곧 출시 (아직 이용할 수 없음)"><img src="img/badges/as-ko.svg" data-badge="as" alt="" width="565" height="168" decoding="async"><em class="dlb-tag" data-t="asCap">곧 출시</em></span>
 </div></div>
 <button type="button" class="totop" id="totop" hidden  data-alt-label="totop" aria-label="맨 위로"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 14l6-6 6 6" fill="none" stroke="currentColor" stroke-width="2.400" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-<script src="strings.js?v=b02f13eda9"></script>
+<script src="strings.js?v=6922dbe5a6"></script>
 <script src="landing.js?v=5cc2195e1b"></script>
 </body>
 </html>

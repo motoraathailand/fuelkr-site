@@ -1,7 +1,7 @@
 // 주유소를부탁해 /join — adapted from nammanthuk-site join.js (same theme). Language, 3 progress ticks (remembered on this phone), share, copy, reset. No tracking, no network calls.
 (function () {
   'use strict';
-  var I = window.JOIN_I18N || {}, LANGS = ['th', 'en', 'ko', 'zh', 'hi'], KEY = 'fkr.join.steps', LKEY = 'fkr.site.lang';
+  var I = window.JOIN_I18N || {}, LANGS = ['ko', 'en'], KEY = 'fkr.join.steps', LKEY = 'fkr.site.lang';
   var M = window.Motion, lang = window.__L || 'en';
   var $ = function (s, r) { return (r || document).querySelector(s); }, $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
   var done = { 1: false, 2: false, 3: false };

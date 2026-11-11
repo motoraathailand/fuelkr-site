@@ -7,10 +7,10 @@ const { chromium } = require('playwright-core');
 const cfg = JSON.parse(fs.readFileSync(new URL('../config/site.json', import.meta.url)));
 const base = (process.argv[2] || cfg.siteUrl).replace(/\/?$/, '/');
 const shots = process.argv[3];
-const LANGS = ['ko', 'en', 'th', 'zh', 'hi'];
+const LANGS = ['ko', 'en'];   // owner 2026-11-11: Korean and English only
 const AD = /광고|\bads?\b|advert|admob|โฆษณา|广告|廣告|विज्ञापन/i;
 // country-restriction wording (owner 2026-11-11: remove all of it)
-const ONLY = /한국 전용|한국에서만|한국 Google Play|Korea[- ]only|in Korea|for Korea|เกาหลีเท่านั้น|สำหรับเกาหลี|ในเกาหลี|面向韩国|仅.{0,12}韩国|韩国的 Google|केवल कोरिया|कोरिया के लिए|कोरिया में/i;
+const ONLY = /한국 전용|한국에서만|한국 Google Play|Korea[- ]only|\bin Korea\b|\bfor Korea\b|เกาหลีเท่านั้น|สำหรับเกาหลี|ในเกาหลี|面向韩国|仅.{0,12}韩国|韩国的 Google|केवल कोरिया|कोरिया के लिए|कोरिया में/i;
 const fails = []; const ok = (c, m) => { if (!c) fails.push(m); };
 const b = await chromium.launch({ executablePath: process.env.CHROME_PATH || '/usr/bin/google-chrome', args: ['--no-sandbox'] });
 const host = new URL(base).host;
@@ -37,6 +37,8 @@ for (const page of ['index.html', 'join.html', 'privacy.html', 'delete-account.h
       badges: [...document.querySelectorAll('.stores')].map((g) => [...g.querySelectorAll('.badge')].map((e) => { const q = e.getBoundingClientRect(); return [Math.round(q.width * 10) / 10, Math.round(q.height * 10) / 10]; })),
       fixed: (document.querySelector('.hd') || document.querySelector('header')) && getComputedStyle(document.querySelector('.hd') || document.querySelector('header')).position,
       langSel: !!document.querySelector('#lang, #langs'),
+      langOpts: [...document.querySelectorAll('#lang option, #langs button')].map((o) => o.value || o.getAttribute('data-l')).join(','),
+      otherLang: [...document.querySelectorAll('[lang]')].map((e) => e.getAttribute('lang')).filter((x) => /^(th|zh|hi)/.test(x)).length,
       steps: [...document.querySelectorAll('.card [data-go]')].map((a) => a.getAttribute('href')),
       priv: [...document.querySelectorAll('a')].filter((a) => /privacy\.html|delete-account\.html/.test(a.href)).length,
     }));
@@ -47,6 +49,7 @@ for (const page of ['index.html', 'join.html', 'privacy.html', 'delete-account.h
     ok(!ONLY.test(r.text) && !ONLY.test(noScript), `${tag}: country-restriction wording ${(r.text.match(ONLY) || noScript.match(ONLY) || [''])[0]}`);
     ok(!r.empty.length, `${tag}: empty text ${r.empty}`);
     ok(!r.broken.length, `${tag}: broken images ${r.broken}`);
+    ok(r.langOpts === 'ko,en' && !r.otherLang, `${tag}: language options must be ko,en only (${r.langOpts}, other-lang blocks ${r.otherLang})`);
     // owner pt494u: no all-apps button or hub link on any page
     ok(!r.apps.length && !r.hub && !/모든 앱 보기|See all apps|ดูแอปทั้งหมด|查看全部应用|सभी ऐप देखें/i.test(r.text), `${tag}: all-apps button still present`);
     ok(!errs.length, `${tag}: console ${errs.join(' | ')}`);
@@ -89,11 +92,14 @@ for (const page of ['index.html', 'join.html', 'privacy.html', 'delete-account.h
 // language rules
 {
   const t = async (locale, url, stor) => { const c = await b.newContext({ locale }); const p = await c.newPage(); if (stor) { await p.goto(base + 'index.html'); await p.evaluate((s) => localStorage.setItem('fkr.site.lang', s), stor); } await p.goto(base + url); const l = await p.evaluate(() => document.documentElement.lang); await c.close(); return l; };
-  ok(await t('zh-TW', 'index.html') === 'zh', 'zh-TW -> zh');
+  ok(await t('zh-TW', 'index.html') === 'en', 'zh-TW device -> en');
+  ok(await t('th-TH', 'join.html') === 'en', 'th device -> en');
   ok(await t('fr-FR', 'index.html') === 'en', 'fr -> en fallback');
   ok(await t('ko-KR', 'index.html') === 'ko', 'ko-KR -> ko');
-  ok(await t('ko-KR', 'index.html', 'th') === 'th', 'saved choice wins');
-  ok(await t('ko-KR', 'join.html?lang=hi', 'th') === 'hi', '?lang= wins');
+  ok(await t('ko-KR', 'index.html', 'en') === 'en', 'saved choice wins');
+  ok(await t('en-US', 'join.html?lang=ko', 'en') === 'ko', '?lang= wins');
+  for (const old of ['th', 'zh', 'hi']) for (const pg of ['index.html', 'join.html', 'privacy.html', 'delete-account.html']) ok(await t('ko-KR', pg + '?lang=' + old) === 'en', `old ?lang=${old} on ${pg} -> en`);
+  ok(await t('ko-KR', 'index.html', 'th') === 'ko', 'old saved th ignored -> device ko');
 }
 await b.close();
 if (fails.length) { console.log('FAIL\n' + fails.join('\n')); process.exit(1); }
