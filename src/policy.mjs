@@ -6,7 +6,7 @@ export const P = {
   ko: {
     title: '개인정보처리방침 — 주유소를부탁해', h1: '개인정보처리방침', meta: '주유소를부탁해 · {pkg} · 최종 업데이트 {date}',
     secs: [
-      ['운영자', '“주유소를부탁해” 앱은 {op}가 운영합니다. 테스트와 출시 대상은 한국입니다. 문의: {email}'],
+      ['운영자', '“주유소를부탁해” 앱은 {op}가 운영합니다. 문의: {email}'],
       ['로그인', '지도, 주유소 목록, 가격, 유종, 길 안내는 로그인 없이 쓸 수 있습니다. 가격을 보려면 로그인 화면이 필요하지 않습니다. 앱은 Firebase 프로젝트 fuelkr-motoraa에서 익명 인증으로 세션을 만들고, 그 ID 토큰으로 가격 조회 서버에 요청합니다. 즐겨찾기, 주유 기록, 가격 알림, 기기 간 동기화를 쓸 때만 Google 계정으로 로그인합니다.'],
       ['수집하는 정보', '• 로그인한 경우: Google 계정의 이메일, 이름, 프로필 사진, Firebase 사용자 ID\n• 위치: 주변 주유소를 조회할 때만 사용합니다. 현재 좌표는 한국석유공사 오피넷 조회(앱에서 직접 또는 MOTOR AA 조회 서버를 거쳐)에만 쓰이며, 이동 기록으로 저장하지 않습니다.\n• 즐겨찾기, 선택한 유종, 직접 입력한 주유 기록\n• 의견: 휴대폰의 메일 앱으로 보내는 내용'],
       ['하지 않는 것', '오피넷 공개 API에는 주유소 재고가 없어 재고를 수집하거나 표시하지 않습니다. 개인정보를 판매하지 않습니다. 유가 조회 인증키는 공개하지 않습니다.'],
@@ -25,7 +25,7 @@ export const P = {
   en: {
     title: 'Privacy policy — 주유소를부탁해', h1: 'Privacy policy', meta: '주유소를부탁해 · {pkg} · Last updated {date}',
     secs: [
-      ['Who we are', 'The app “주유소를부탁해” is operated by {op}. Testing and release are for Korea. Contact: {email}'],
+      ['Who we are', 'The app “주유소를부탁해” is operated by {op}. Contact: {email}'],
       ['Sign-in', 'The map, station list, prices, fuel types and directions work without signing in. You do not need a sign-in screen to see prices. The app creates an anonymous Firebase session in project fuelkr-motoraa and uses that ID token to request prices from the lookup server. A Google account is used only for favourites, the fuel log, price alerts and syncing between devices.'],
       ['What we collect', '• If you sign in: your Google email, name, profile photo and Firebase user ID\n• Location: used only to look up nearby stations. The current coordinates are used only for a Korea National Oil Corporation Opinet lookup (from the app directly or through a MOTOR AA lookup server) and are not stored as a travel history.\n• Favourites, the fuel you chose, and a fuel log you type yourself\n• Feedback you send with your mail app'],
       ['What we do not do', 'Opinet’s public API has no station stock, so the app neither collects nor shows stock. We do not sell personal data. The price lookup key is not published.'],
@@ -44,7 +44,7 @@ export const P = {
   th: {
     title: 'นโยบายความเป็นส่วนตัว — 주유소를부탁해', h1: 'นโยบายความเป็นส่วนตัว', meta: '주유소를부탁해 · {pkg} · อัปเดต {date}',
     secs: [
-      ['สรุป', 'แอปนี้สำหรับเกาหลี ดำเนินการโดย {op} ติดต่อ {email} ใช้แผนที่ รายการปั๊ม และราคาได้โดยไม่ต้องเข้าสู่ระบบ บัญชี Google ใช้เฉพาะรายการโปรด บันทึกการเติม การแจ้งเตือนราคา และการซิงก์ ตำแหน่งใช้เพื่อค้นหาปั๊มใกล้ ๆ ผ่านโอพีเน็ตเท่านั้น ไม่เก็บประวัติการเดินทาง และไม่มีข้อมูลสต็อก ลบบัญชีได้ที่เมนู → บัญชีของฉัน → ลบบัญชี'],
+      ['สรุป', 'แอปนี้ดำเนินการโดย {op} ติดต่อ {email} ใช้แผนที่ รายการปั๊ม และราคาได้โดยไม่ต้องเข้าสู่ระบบ บัญชี Google ใช้เฉพาะรายการโปรด บันทึกการเติม การแจ้งเตือนราคา และการซิงก์ ตำแหน่งใช้เพื่อค้นหาปั๊มใกล้ ๆ ผ่านโอพีเน็ตเท่านั้น ไม่เก็บประวัติการเดินทาง และไม่มีข้อมูลสต็อก ลบบัญชีได้ที่เมนู → บัญชีของฉัน → ลบบัญชี'],
     ],
     del: 'ขอลบบัญชีและข้อมูล →', back: '← เกี่ยวกับแอป',
     dTitle: 'ขอลบบัญชีและข้อมูล — 주유소를부탁해', dH1: 'ขอลบบัญชีและข้อมูล',
@@ -54,7 +54,7 @@ export const P = {
   zh: {
     title: '隐私政策 — 주유소를부탁해', h1: '隐私政策', meta: '주유소를부탁해 · {pkg} · 最后更新 {date}',
     secs: [
-      ['摘要', '本应用面向韩国，由 {op} 运营，联系 {email}。地图、加油站列表和价格无需登录即可使用；Google 账号只用于收藏、加油记录、价格提醒和同步。位置只用于通过 Opinet 查询附近加油站，不保存行程记录，也没有库存数据。可在 菜单 → 我的账号 → 删除账号 中删除。'],
+      ['摘要', '本应用由 {op} 运营，联系 {email}。地图、加油站列表和价格无需登录即可使用；Google 账号只用于收藏、加油记录、价格提醒和同步。位置只用于通过 Opinet 查询附近加油站，不保存行程记录，也没有库存数据。可在 菜单 → 我的账号 → 删除账号 中删除。'],
     ],
     del: '删除账号和数据 →', back: '← 应用介绍',
     dTitle: '删除账号和数据 — 주유소를부탁해', dH1: '删除账号和数据',
@@ -64,7 +64,7 @@ export const P = {
   hi: {
     title: 'गोपनीयता नीति — 주유소를부탁해', h1: 'गोपनीयता नीति', meta: '주유소를부탁해 · {pkg} · अपडेट {date}',
     secs: [
-      ['सारांश', 'यह ऐप कोरिया के लिए है, {op} द्वारा चलाया जाता है, संपर्क {email}। नक्शा, पंप सूची और दाम बिना साइन-इन के चलते हैं; Google खाता केवल पसंदीदा, ईंधन रिकॉर्ड, दाम अलर्ट और सिंक के लिए है। लोकेशन केवल Opinet से पास के पंप खोजने में लगती है, यात्रा इतिहास सेव नहीं होता, स्टॉक डेटा नहीं है। मेन्यू → मेरा खाता → खाता हटाएँ से हटाएँ।'],
+      ['सारांश', 'यह ऐप {op} द्वारा चलाया जाता है, संपर्क {email}। नक्शा, पंप सूची और दाम बिना साइन-इन के चलते हैं; Google खाता केवल पसंदीदा, ईंधन रिकॉर्ड, दाम अलर्ट और सिंक के लिए है। लोकेशन केवल Opinet से पास के पंप खोजने में लगती है, यात्रा इतिहास सेव नहीं होता, स्टॉक डेटा नहीं है। मेन्यू → मेरा खाता → खाता हटाएँ से हटाएँ।'],
     ],
     del: 'खाता और डेटा हटाएँ →', back: '← ऐप के बारे में',
     dTitle: 'खाता और डेटा हटाएँ — 주유소를부탁해', dH1: 'खाता और डेटा हटाएँ',

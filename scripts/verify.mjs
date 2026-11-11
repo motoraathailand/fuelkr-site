@@ -9,6 +9,8 @@ const base = (process.argv[2] || cfg.siteUrl).replace(/\/?$/, '/');
 const shots = process.argv[3];
 const LANGS = ['ko', 'en', 'th', 'zh', 'hi'];
 const AD = /광고|\bads?\b|advert|admob|โฆษณา|广告|廣告|विज्ञापन/i;
+// country-restriction wording (owner 2026-11-11: remove all of it)
+const ONLY = /한국 전용|한국에서만|한국 Google Play|Korea[- ]only|in Korea|for Korea|เกาหลีเท่านั้น|สำหรับเกาหลี|ในเกาหลี|面向韩国|仅.{0,12}韩国|韩国的 Google|केवल कोरिया|कोरिया के लिए|कोरिया में/i;
 const fails = []; const ok = (c, m) => { if (!c) fails.push(m); };
 const b = await chromium.launch({ executablePath: process.env.CHROME_PATH || '/usr/bin/google-chrome', args: ['--no-sandbox'] });
 const host = new URL(base).host;
@@ -26,36 +28,39 @@ for (const page of ['index.html', 'join.html', 'privacy.html', 'delete-account.h
     const r = await p.evaluate(() => ({
       lang: document.documentElement.lang, sw: document.documentElement.scrollWidth, cw: document.documentElement.clientWidth,
       text: document.body.innerText, html: document.documentElement.outerHTML,
-      empty: [...document.querySelectorAll('[data-t]')].filter((e) => !e.textContent.trim()).map((e) => e.getAttribute('data-t')),
+      empty: [...document.querySelectorAll('[data-t]')].filter((e) => !e.textContent.trim() && !/^s\de$/.test(e.getAttribute('data-t'))).map((e) => e.getAttribute('data-t')),
       broken: [...document.querySelectorAll('img')].filter((i) => i.complete && i.naturalWidth === 0).map((i) => i.src),
       gp: [...document.querySelectorAll('[data-gp]')].map((a) => a.getAttribute('href')),
       asLinks: [...document.querySelectorAll('a')].filter((a) => /apps\.apple\.com/.test(a.href)).length,
       apps: [...document.querySelectorAll('a[data-apps]')].map((a) => a.href),
-      badges: [...document.querySelectorAll('.stores .badge')].map((e) => { const q = e.getBoundingClientRect(); return [Math.round(q.width * 10) / 10, Math.round(q.height * 10) / 10]; }),
-      fixed: !!document.querySelector('.hd') && getComputedStyle(document.querySelector('.hd')).position,
-      langSel: !!document.querySelector('#lang'),
+      badges: [...document.querySelectorAll('.stores')].map((g) => [...g.querySelectorAll('.badge')].map((e) => { const q = e.getBoundingClientRect(); return [Math.round(q.width * 10) / 10, Math.round(q.height * 10) / 10]; })),
+      fixed: (document.querySelector('.hd') || document.querySelector('header')) && getComputedStyle(document.querySelector('.hd') || document.querySelector('header')).position,
+      langSel: !!document.querySelector('#lang, #langs'),
       steps: [...document.querySelectorAll('.card [data-go]')].map((a) => a.getAttribute('href')),
       priv: [...document.querySelectorAll('a')].filter((a) => /privacy\.html|delete-account\.html/.test(a.href)).length,
     }));
     ok(r.lang === l, `${tag}: lang ${r.lang}`);
     ok(r.sw <= r.cw, `${tag}: horizontal overflow ${r.sw}>${r.cw}`);
-    ok(!AD.test(r.text) && !AD.test(r.html.replace(/<script[\s\S]*?<\/script>/g, '')), `${tag}: ads wording`);
+    const noScript = r.html.replace(/<script[\s\S]*?<\/script>/g, '');
+    ok(!AD.test(r.text) && !AD.test(noScript), `${tag}: ads wording`);
+    ok(!ONLY.test(r.text) && !ONLY.test(noScript), `${tag}: country-restriction wording ${(r.text.match(ONLY) || noScript.match(ONLY) || [''])[0]}`);
     ok(!r.empty.length, `${tag}: empty text ${r.empty}`);
     ok(!r.broken.length, `${tag}: broken images ${r.broken}`);
     ok(!errs.length, `${tag}: console ${errs.join(' | ')}`);
     ok(!ext.length, `${tag}: external requests ${[...new Set(ext)]}`);
-    ok(r.langSel && r.fixed === 'fixed', `${tag}: fixed header with language switch`);
+    ok(r.langSel && /fixed|sticky/.test(r.fixed), `${tag}: fixed header with language switch (${r.fixed})`);
     ok(r.asLinks === (cfg.appStoreUrl ? r.asLinks : 0), `${tag}: App Store must not be a link yet`);
     if (page === 'index.html') {
       ok(r.text.includes('MOTOR AA'), `${tag}: MOTOR AA missing`);
       ok(!/Pornnarai/i.test(r.text), `${tag}: personal name shown`);
-      ok(r.gp.length === 3 && r.gp.every((h) => h === 'join.html?lang=' + l), `${tag}: Play buttons ${r.gp}`);
-      ok(r.apps.length === 1 && r.apps[0] === cfg.hubUrl, `${tag}: all-apps button ${r.apps}`);
-      ok(r.badges.length === 4 && r.badges.every((x) => x[0] === r.badges[0][0] && x[1] === r.badges[0][1]), `${tag}: badge sizes ${JSON.stringify(r.badges)}`);
+      ok(r.gp.length === 4 && r.gp.every((h) => h === 'join.html?lang=' + l), `${tag}: Play buttons ${r.gp}`);
+      ok(r.apps.length >= 1 && r.apps.every((h) => h === cfg.hubUrl), `${tag}: all-apps button ${r.apps}`);
+      ok(r.badges.length === 2 && r.badges.every((g) => g.length === 2 && g[0][0] === g[1][0] && g[0][1] === g[1][1]), `${tag}: Play / App Store badges not the same size ${JSON.stringify(r.badges)}`);
       ok(r.priv >= 2, `${tag}: privacy/delete links`);
-      // bottom bar: two stores half/half + back to top
-      await p.evaluate(() => scrollTo(0, 1500)); await p.waitForTimeout(700);
-      const bar = await p.evaluate(() => { const s = document.querySelector('#stick'); const d = [...s.querySelectorAll('.dlb')].map((e) => { const q = e.getBoundingClientRect(); return [Math.round(q.width), Math.round(q.height), Math.round(q.top)]; }); return { show: s.classList.contains('show'), d, top: !!s.querySelector('#totop') }; });
+      ok(r.text.includes('Android Auto'), `${tag}: Android Auto section`);
+      // bottom bar: two stores half/half + back-to-top button
+      await p.evaluate(() => scrollTo(0, 1500)); await p.waitForTimeout(900);
+      const bar = await p.evaluate(() => { const s = document.querySelector('#stick'); const d = [...s.querySelectorAll('.dlb')].map((e) => { const q = e.getBoundingClientRect(); return [Math.round(q.width), Math.round(q.height), Math.round(q.top)]; }); const t = document.querySelector('#totop'); return { show: s.classList.contains('show'), d, top: !!t && !t.hidden }; });
       ok(bar.show && bar.top && bar.d.length === 2 && bar.d[0][0] === bar.d[1][0] && bar.d[0][2] === bar.d[1][2], `${tag}: bottom bar ${JSON.stringify(bar)}`);
       if (shots && (l === 'ko' || l === 'en') && w !== 360) await p.screenshot({ path: `${shots}/intro-${l}-${w}-bar.png` });
     }
@@ -63,6 +68,7 @@ for (const page of ['index.html', 'join.html', 'privacy.html', 'delete-account.h
       ok(r.text.includes('MOTOR AA'), `${tag}: MOTOR AA missing`);
       ok(JSON.stringify(r.steps) === JSON.stringify([cfg.groupUrl, cfg.optInUrl, cfg.installUrl]), `${tag}: step links ${r.steps}`);
       ok(r.apps.length === 1 && r.apps[0] === cfg.hubUrl, `${tag}: all-apps button`);
+      ok(!cfg.optInLive === (await p.evaluate(() => !!document.querySelector('#c2[data-locked]') && !document.querySelector('#pend').hidden)), `${tag}: optInLive lock state`);
       ok(r.html.includes(cfg.groupEmail) || r.text.includes('Gmail'), `${tag}: gmail note`);
       if (w === 390) { const fold = await p.evaluate(() => { const c = document.querySelector('#c3').getBoundingClientRect(); return c.bottom; }); ok(fold <= 844, `${tag}: step 3 below the fold (${fold})`); }
     }
@@ -70,7 +76,9 @@ for (const page of ['index.html', 'join.html', 'privacy.html', 'delete-account.h
       const n = page.replace('.html', '').replace('index', 'intro');
       await p.evaluate(() => scrollTo(0, 0)); await p.waitForTimeout(500);
       await p.screenshot({ path: `${shots}/${n}-${l}-${w}-top.png` });
+      await p.evaluate(async () => { document.querySelectorAll('.rv, .feat-vis, .check, [data-reveal]').forEach((e) => e.classList.add('in')); const im = [...document.querySelectorAll('img')]; im.forEach((i) => { i.loading = 'eager'; }); await Promise.all(im.map((i) => i.complete ? 0 : new Promise((r) => { i.onload = i.onerror = r; setTimeout(r, 3000); }))); }); await p.waitForTimeout(900);
       await p.screenshot({ path: `${shots}/${n}-${l}-${w}-full.png`, fullPage: true });
+      await p.evaluate(() => scrollTo(0, 0));
     }
     await ctx.close();
   }
