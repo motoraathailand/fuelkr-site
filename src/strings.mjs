@@ -8,8 +8,8 @@ const BR = {
   en: ['SK Energy', 'GS Caltex', 'HD Hyundai Oilbank', 'S-OIL', 'Independent Alddeul', 'Expressway Alddeul', 'NH Alddeul', 'E1', 'SK Gas']
 };
 const FU = {
-  ko: ['보통휘발유', '고급휘발유', '경유', 'LPG'],
-  en: ['Regular gasoline', 'Premium gasoline', 'Diesel', 'LPG']
+  ko: ['휘발유', '고급휘발유', '경유', 'LPG'],
+  en: ['Gasoline', 'Premium gasoline', 'Diesel', 'LPG']
 };
 
 export const STR = {
@@ -29,7 +29,7 @@ export const STR = {
     mqH: '브랜드별로, 내가 넣는 연료로',
     s1l: '내 연료', s1h: '내가 넣는 연료부터 고르세요',
     s1p: '처음 켜면 연료를 고르는 화면이 나와요. 고른 연료의 가격만 보여 주고, 나중에 언제든 바꿀 수 있어요.',
-    s1b1: '보통휘발유 · 고급휘발유 · 경유 · LPG', s1b2: '브랜드별로 골라 보기', s1b3: '오피넷 제품 코드 그대로 표시', s1b4: '오피넷에 없는 연료는 “정보 미제공”으로 알려 줌',
+    s1b1: '휘발유 · 고급휘발유 · 경유 · LPG', s1b2: '브랜드별로 골라 보기', s1b3: '오피넷 제품 코드 그대로 표시', s1b4: '선택한 연료 가격만 보여 줌',
     s2l: '정렬 · 길 안내', s2h: '가까운 순, 저렴한 순으로 바로',
     s2p: '목록을 거리순이나 가격순으로 바꾸고, 지도에서 위치를 확인한 뒤 티맵, 카카오, 네이버로 길 안내를 시작해요. 첫 실행 안내가 화면 위에서 하나씩 알려 줘요.',
     s2b1: '“가까운 순” · “저렴한 순” 버튼', s2b2: '지도에서 주유소 위치 확인', s2b3: '티맵 · 카카오 · 네이버로 길 안내', s2b4: '처음 한 번 보는 사용 안내',
@@ -88,7 +88,7 @@ export const STR = {
     mqH: 'By brand, for the fuel you use',
     s1l: 'Your fuel', s1h: 'Start by picking your fuel',
     s1p: 'The first screen asks which fuel you use. You then see prices for that fuel only, and you can change it any time.',
-    s1b1: 'Regular · premium gasoline · diesel · LPG', s1b2: 'Filter by brand', s1b3: 'Opinet product codes shown as they are', s1b4: 'Fuels Opinet does not cover say “not provided”',
+    s1b1: 'Gasoline · Premium gasoline · Diesel · LPG', s1b2: 'Filter by brand', s1b3: 'Opinet product codes shown as they are', s1b4: 'Shows prices only for the fuel you picked',
     s2l: 'Sort · directions', s2h: 'Nearest or cheapest, right away',
     s2p: 'Switch the list between distance and price, check the map, then start directions in TMAP, Kakao or Naver. A first-run guide shows you around on the real screen.',
     s2b1: '“Nearest” and “Cheapest” buttons', s2b2: 'Station locations on the map', s2b3: 'Directions in TMAP, Kakao or Naver', s2b4: 'A one-time guide on first launch',
