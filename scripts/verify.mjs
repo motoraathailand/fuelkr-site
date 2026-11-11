@@ -50,6 +50,8 @@ for (const page of ['index.html', 'join.html', 'privacy.html', 'delete-account.h
     ok(!r.empty.length, `${tag}: empty text ${r.empty}`);
     ok(!r.broken.length, `${tag}: broken images ${r.broken}`);
     ok(r.langOpts === 'ko,en' && !r.otherLang, `${tag}: language options must be ko,en only (${r.langOpts}, other-lang blocks ${r.otherLang})`);
+    // owner pt497u: no kerosene, butane is LPG; navigation is TMAP / Kakao / Naver (Google Play badge text is fine)
+    { const O = /실내등유|등유|kerosene|부탄|butane|Waze|Google 지도|Google Maps/i; ok(!O.test(r.text) && !O.test(noScript), `${tag}: outdated app wording ${(r.text.match(O) || noScript.match(O) || [''])[0]}`); }
     // owner pt494u: no all-apps button or hub link on any page
     ok(!r.apps.length && !r.hub && !/모든 앱 보기|See all apps|ดูแอปทั้งหมด|查看全部应用|सभी ऐप देखें/i.test(r.text), `${tag}: all-apps button still present`);
     ok(!errs.length, `${tag}: console ${errs.join(' | ')}`);

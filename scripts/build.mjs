@@ -24,8 +24,10 @@ for (const [name, T] of [['intro', STR], ['join', J], ['policy', P]]) {
 const AD = /광고|\bads?\b|advert|admob|โฆษณา|广告|廣告|विज्ञापन/i;
 const ONLY = /한국 전용|한국에서만|한국 Google Play|Korea[- ]only|\bin Korea\b|\bfor Korea\b|เกาหลีเท่านั้น|สำหรับเกาหลี|ในเกาหลี|面向韩国|仅.{0,12}韩国|韩国的 Google|केवल कोरिया|कोरिया के लिए|कोरिया में/i;
 const APPS = /모든 앱 보기|See all apps|ดูแอปทั้งหมด|查看全部应用|सभी ऐप देखें/i;   // owner pt494u: no all-apps button on this site
+const OLDAPP = /실내등유|등유|kerosene|부탄|butane|Waze|Google 지도|Google Maps/i;   // owner pt497u: no kerosene, butane is LPG; navigation is TMAP / Kakao / Naver
 const allCopy = JSON.stringify([STR, J, P]);
 if (AD.test(allCopy)) throw new Error('ads wording found in copy: ' + allCopy.match(AD)[0]);
+if (OLDAPP.test(allCopy)) throw new Error('outdated app wording in copy: ' + allCopy.match(OLDAPP)[0]);
 if (ONLY.test(allCopy)) throw new Error('country-restriction wording found in copy: ' + allCopy.match(ONLY)[0]);
 
 // ---- clean old layout, copy theme assets (root level: the CSS loads fonts/ relatively) ----
@@ -181,6 +183,7 @@ for (const f of ['index.html', 'join.html', 'privacy.html', 'delete-account.html
   const h = fs.readFileSync(path.join(OUT, f), 'utf8').replace(/<script[\s\S]*?<\/script>/g, '');
   if (AD.test(h)) throw new Error(f + ': ads wording: ' + h.match(AD)[0]);
   if (APPS.test(h) || /data-apps|motoraathailand\.github\.io\/"/.test(h)) throw new Error(f + ': all-apps button/link found');
+  if (OLDAPP.test(h)) throw new Error(f + ': outdated app wording: ' + h.match(OLDAPP)[0]);
   if (ONLY.test(h)) throw new Error(f + ': country-restriction wording: ' + h.match(ONLY)[0]);
 }
 console.log('built docs/ (nammanthuk theme): index.html join.html privacy.html delete-account.html (optInLive=' + live + ')');

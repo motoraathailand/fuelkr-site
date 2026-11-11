@@ -25,7 +25,7 @@ sub(r'<small data-t="fl1s">', '<small data-t="fl1s">')
 # stats
 sub(r'<div class="wrap stats-in stg">.*?</div>\n</section>', '<div class="wrap stats-in stg">\n'
     '    <div class="stat rv"><b><span class="cnt" data-to="5">5</span></b><span data-t="st1"></span></div>\n'
-    '    <div class="stat rv"><b><span class="cnt" data-to="5">5</span></b><span data-t="st2"></span></div>\n'
+    '    <div class="stat rv"><b><span class="cnt" data-to="4">4</span></b><span data-t="st2"></span></div>\n'
     '    <div class="stat rv"><b><span class="cnt" data-to="2">2</span></b><span data-t="st3"></span></div>\n'
     '    <div class="stat rv"><b><span class="cnt" data-to="2">2</span></b><span data-t="st4"></span></div>\n'
     '  </div>\n</section>')

@@ -8,8 +8,8 @@ const BR = {
   en: ['SK Energy', 'GS Caltex', 'HD Hyundai Oilbank', 'S-OIL', 'Independent Alddeul', 'Expressway Alddeul', 'NH Alddeul', 'E1', 'SK Gas']
 };
 const FU = {
-  ko: ['보통휘발유', '고급휘발유', '경유', '실내등유', '자동차부탄'],
-  en: ['Regular gasoline', 'Premium gasoline', 'Diesel', 'Kerosene', 'Autogas (LPG)']
+  ko: ['보통휘발유', '고급휘발유', '경유', 'LPG'],
+  en: ['Regular gasoline', 'Premium gasoline', 'Diesel', 'LPG']
 };
 
 export const STR = {
@@ -29,10 +29,10 @@ export const STR = {
     mqH: '브랜드별로, 내가 넣는 연료로',
     s1l: '내 연료', s1h: '내가 넣는 연료부터 고르세요',
     s1p: '처음 켜면 연료를 고르는 화면이 나와요. 고른 연료의 가격만 보여 주고, 나중에 언제든 바꿀 수 있어요.',
-    s1b1: '보통휘발유 · 고급휘발유 · 경유 · 실내등유 · 자동차부탄', s1b2: '브랜드별로 골라 보기', s1b3: '오피넷 제품 코드 그대로 표시', s1b4: '오피넷에 없는 연료는 “정보 미제공”으로 알려 줌',
+    s1b1: '보통휘발유 · 고급휘발유 · 경유 · LPG', s1b2: '브랜드별로 골라 보기', s1b3: '오피넷 제품 코드 그대로 표시', s1b4: '오피넷에 없는 연료는 “정보 미제공”으로 알려 줌',
     s2l: '정렬 · 길 안내', s2h: '가까운 순, 저렴한 순으로 바로',
-    s2p: '목록을 거리순이나 가격순으로 바꾸고, 지도에서 위치를 확인한 뒤 Google 지도나 Waze로 길 안내를 시작해요. 첫 실행 안내가 화면 위에서 하나씩 알려 줘요.',
-    s2b1: '“가까운 순” · “저렴한 순” 버튼', s2b2: '지도에서 주유소 위치 확인', s2b3: 'Google 지도 · Waze로 길 안내', s2b4: '처음 한 번 보는 사용 안내',
+    s2p: '목록을 거리순이나 가격순으로 바꾸고, 지도에서 위치를 확인한 뒤 티맵, 카카오, 네이버로 길 안내를 시작해요. 첫 실행 안내가 화면 위에서 하나씩 알려 줘요.',
+    s2b1: '“가까운 순” · “저렴한 순” 버튼', s2b2: '지도에서 주유소 위치 확인', s2b3: '티맵 · 카카오 · 네이버로 길 안내', s2b4: '처음 한 번 보는 사용 안내',
     s3l: '내 계정', s3h: '즐겨찾기와 주유 기록은 계정에',
     s3p: '자주 가는 주유소와 주유 기록을 Google 계정에 저장해요. 휴대폰을 바꿔도 이어지고, 메뉴에서 공지와 업데이트도 볼 수 있어요.',
     s3b1: '즐겨찾는 주유소', s3b2: '주유 기록 (원 · 리터)', s3b3: '가격이 내리면 앱 안에서 알림', s3b4: '공지사항 · 업데이트 · 피드백 보내기',
@@ -88,10 +88,10 @@ export const STR = {
     mqH: 'By brand, for the fuel you use',
     s1l: 'Your fuel', s1h: 'Start by picking your fuel',
     s1p: 'The first screen asks which fuel you use. You then see prices for that fuel only, and you can change it any time.',
-    s1b1: 'Regular · premium gasoline · diesel · kerosene · autogas', s1b2: 'Filter by brand', s1b3: 'Opinet product codes shown as they are', s1b4: 'Fuels Opinet does not cover say “not provided”',
+    s1b1: 'Regular · premium gasoline · diesel · LPG', s1b2: 'Filter by brand', s1b3: 'Opinet product codes shown as they are', s1b4: 'Fuels Opinet does not cover say “not provided”',
     s2l: 'Sort · directions', s2h: 'Nearest or cheapest, right away',
-    s2p: 'Switch the list between distance and price, check the map, then start directions in Google Maps or Waze. A first-run guide shows you around on the real screen.',
-    s2b1: '“Nearest” and “Cheapest” buttons', s2b2: 'Station locations on the map', s2b3: 'Directions in Google Maps or Waze', s2b4: 'A one-time guide on first launch',
+    s2p: 'Switch the list between distance and price, check the map, then start directions in TMAP, Kakao or Naver. A first-run guide shows you around on the real screen.',
+    s2b1: '“Nearest” and “Cheapest” buttons', s2b2: 'Station locations on the map', s2b3: 'Directions in TMAP, Kakao or Naver', s2b4: 'A one-time guide on first launch',
     s3l: 'Your account', s3h: 'Favourites and fuel log in your account',
     s3p: 'Your favourite stations and fuel log are saved to your Google account, so they move with you to a new phone. Notices and updates are in the menu.',
     s3b1: 'Favourite stations', s3b2: 'Fuel log (KRW · litres)', s3b3: 'In-app alert when a price drops', s3b4: 'Notices · updates · send feedback',
