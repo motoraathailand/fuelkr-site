@@ -28,7 +28,7 @@
   $$('.cnt').forEach(function (c) { if (!c.closest('.hero')) c.textContent = fmt(c, c.hasAttribute('data-from') ? +c.getAttribute('data-from') : 0); });   // start from the "before" value; the real number is already in the HTML if JS is off
 
   /* ---- language (crossfade) ---- */
-  function setShots(l) { $$('[data-shot]').forEach(function (img) { var src = 'img/' + shotLang(l) + '-' + img.getAttribute('data-shot') + '.webp'; if (img.getAttribute('src') !== src) img.src = src; }); }
+  function setShots(l) { $$('[data-shot]').forEach(function (img) { var src = 'img/' + shotLang(l) + '-' + img.getAttribute('data-shot') + '.webp?v=109'; if (img.getAttribute('src') !== src) img.src = src; }); }
   function setBadges(l) { $$('[data-badge]').forEach(function (img) { var k = img.getAttribute('data-badge'), src = k === 'gp' ? 'img/badges/gp-' + l + '.png' : 'img/badges/as-' + (l === 'hi' ? 'en' : l) + '.svg'; if (img.getAttribute('src') !== src) img.src = src; }); }   // official store badges per language (Apple has no Hindi badge: English)
   function setLinks(l) { $$('[data-gp], [data-lnk]').forEach(function (a) { a.setAttribute('href', a.getAttribute('href').split('?')[0] + '?lang=' + l); }); }   // join / policy pages open in the same language
   function paintLang(l) {
