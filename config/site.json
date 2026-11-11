@@ -1,0 +1,19 @@
+{
+  "_about": "THE ONE PLACE for this site's links and facts. Edit here, then run: node scripts/build.mjs && node scripts/verify.mjs, commit, push.",
+  "siteUrl": "https://motoraathailand.github.io/fuelkr-site",
+  "appName": "주유소를부탁해",
+  "packageName": "com.motoraa.fuelkr",
+  "groupEmail": "motoraa-testers@googlegroups.com",
+  "groupUrl": "https://groups.google.com/g/motoraa-testers",
+  "optInUrl": "https://play.google.com/apps/testing/com.motoraa.fuelkr",
+  "installUrl": "https://play.google.com/store/apps/details?id=com.motoraa.fuelkr",
+  "appStoreUrl": "",
+  "hubUrl": "https://motoraathailand.github.io/",
+  "contactEmail": "motoraathailand@gmail.com",
+  "provider": "MOTOR AA",
+  "policyOperator": "Pornnarai Tananchai",
+  "policyDate": "2026-11-11",
+  "optInLive": false,
+  "_optInLive": "false = the Play closed test is not published yet: steps 2-3 on join.html are dimmed with a note (step 1, the shared group, always works). Set true once Play Console > Testing > Closed testing (Korea) is 'Available to testers', then rebuild + push.",
+  "_appStoreUrl": "empty = App Store badge is a disabled 'coming soon' badge (no link). Put the apps.apple.com URL here when the iOS app is live."
+}
