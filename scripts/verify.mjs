@@ -33,6 +33,7 @@ for (const page of ['index.html', 'join.html', 'privacy.html', 'delete-account.h
       gp: [...document.querySelectorAll('[data-gp]')].map((a) => a.getAttribute('href')),
       asLinks: [...document.querySelectorAll('a')].filter((a) => /apps\.apple\.com/.test(a.href)).length,
       apps: [...document.querySelectorAll('a[data-apps]')].map((a) => a.href),
+      hub: [...document.querySelectorAll('a')].filter((a) => a.href.replace(/\/$/, '') === 'https://motoraathailand.github.io').length,
       badges: [...document.querySelectorAll('.stores')].map((g) => [...g.querySelectorAll('.badge')].map((e) => { const q = e.getBoundingClientRect(); return [Math.round(q.width * 10) / 10, Math.round(q.height * 10) / 10]; })),
       fixed: (document.querySelector('.hd') || document.querySelector('header')) && getComputedStyle(document.querySelector('.hd') || document.querySelector('header')).position,
       langSel: !!document.querySelector('#lang, #langs'),
@@ -46,6 +47,8 @@ for (const page of ['index.html', 'join.html', 'privacy.html', 'delete-account.h
     ok(!ONLY.test(r.text) && !ONLY.test(noScript), `${tag}: country-restriction wording ${(r.text.match(ONLY) || noScript.match(ONLY) || [''])[0]}`);
     ok(!r.empty.length, `${tag}: empty text ${r.empty}`);
     ok(!r.broken.length, `${tag}: broken images ${r.broken}`);
+    // owner pt494u: no all-apps button or hub link on any page
+    ok(!r.apps.length && !r.hub && !/모든 앱 보기|See all apps|ดูแอปทั้งหมด|查看全部应用|सभी ऐप देखें/i.test(r.text), `${tag}: all-apps button still present`);
     ok(!errs.length, `${tag}: console ${errs.join(' | ')}`);
     ok(!ext.length, `${tag}: external requests ${[...new Set(ext)]}`);
     ok(r.langSel && /fixed|sticky/.test(r.fixed), `${tag}: fixed header with language switch (${r.fixed})`);
@@ -54,7 +57,7 @@ for (const page of ['index.html', 'join.html', 'privacy.html', 'delete-account.h
       ok(r.text.includes('MOTOR AA'), `${tag}: MOTOR AA missing`);
       ok(!/Pornnarai/i.test(r.text), `${tag}: personal name shown`);
       ok(r.gp.length === 4 && r.gp.every((h) => h === 'join.html?lang=' + l), `${tag}: Play buttons ${r.gp}`);
-      ok(r.apps.length >= 1 && r.apps.every((h) => h === cfg.hubUrl), `${tag}: all-apps button ${r.apps}`);
+      
       ok(r.badges.length === 2 && r.badges.every((g) => g.length === 2 && g[0][0] === g[1][0] && g[0][1] === g[1][1]), `${tag}: Play / App Store badges not the same size ${JSON.stringify(r.badges)}`);
       ok(r.priv >= 2, `${tag}: privacy/delete links`);
       ok(r.text.includes('Android Auto'), `${tag}: Android Auto section`);
@@ -67,7 +70,7 @@ for (const page of ['index.html', 'join.html', 'privacy.html', 'delete-account.h
     if (page === 'join.html') {
       ok(r.text.includes('MOTOR AA'), `${tag}: MOTOR AA missing`);
       ok(JSON.stringify(r.steps) === JSON.stringify([cfg.groupUrl, cfg.optInUrl, cfg.installUrl]), `${tag}: step links ${r.steps}`);
-      ok(r.apps.length === 1 && r.apps[0] === cfg.hubUrl, `${tag}: all-apps button`);
+      
       ok(!cfg.optInLive === (await p.evaluate(() => !!document.querySelector('#c2[data-locked]') && !document.querySelector('#pend').hidden)), `${tag}: optInLive lock state`);
       ok(r.html.includes(cfg.groupEmail) || r.text.includes('Gmail'), `${tag}: gmail note`);
       if (w === 390) { const fold = await p.evaluate(() => { const c = document.querySelector('#c3').getBoundingClientRect(); return c.bottom; }); ok(fold <= 844, `${tag}: step 3 below the fold (${fold})`); }

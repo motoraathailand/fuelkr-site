@@ -23,6 +23,7 @@ for (const [name, T] of [['intro', STR], ['join', J], ['policy', P]]) {
 }
 const AD = /광고|\bads?\b|advert|admob|โฆษณา|广告|廣告|विज्ञापन/i;
 const ONLY = /한국 전용|한국에서만|한국 Google Play|Korea[- ]only|in Korea|for Korea|เกาหลีเท่านั้น|สำหรับเกาหลี|ในเกาหลี|面向韩国|仅.{0,12}韩国|韩国的 Google|केवल कोरिया|कोरिया के लिए|कोरिया में/i;
+const APPS = /모든 앱 보기|See all apps|ดูแอปทั้งหมด|查看全部应用|सभी ऐप देखें/i;   // owner pt494u: no all-apps button on this site
 const allCopy = JSON.stringify([STR, J, P]);
 if (AD.test(allCopy)) throw new Error('ads wording found in copy: ' + allCopy.match(AD)[0]);
 if (ONLY.test(allCopy)) throw new Error('country-restriction wording found in copy: ' + allCopy.match(ONLY)[0]);
@@ -118,7 +119,7 @@ const policyPage = (kind) => {
   const isP = kind === 'privacy', T = P.ko;
   const secs = LANGS.map((l) => {
     const p = P[l], list = isP ? p.secs : p.dSecs;
-    return `<section lang="${l}" id="s-${l}"${l === 'ko' ? ' class="on"' : ''}><h1>${esc(isP ? p.h1 : p.dH1)}</h1><p class="meta">${esc(fillP(p.meta))}</p>${list.map(([h, b]) => `<h2>${esc(h)}</h2>${body(b)}`).join('')}<p class="links">${isP ? `<a href="delete-account.html" data-lnk>${esc(p.del)}</a>` : `<a href="privacy.html" data-lnk>${esc(p.pp)}</a>`} · <a href="index.html" data-lnk>${esc(p.back)}</a> · <a href="${cfg.hubUrl}">${esc(STR[l].apps)}</a></p></section>`;
+    return `<section lang="${l}" id="s-${l}"${l === 'ko' ? ' class="on"' : ''}><h1>${esc(isP ? p.h1 : p.dH1)}</h1><p class="meta">${esc(fillP(p.meta))}</p>${list.map(([h, b]) => `<h2>${esc(h)}</h2>${body(b)}`).join('')}<p class="links">${isP ? `<a href="delete-account.html" data-lnk>${esc(p.del)}</a>` : `<a href="privacy.html" data-lnk>${esc(p.pp)}</a>`} · <a href="index.html" data-lnk>${esc(p.back)}</a></p></section>`;
   }).join('\n');
   const titles = Object.fromEntries(LANGS.map((l) => [l, isP ? P[l].title : P[l].dTitle])), backs = Object.fromEntries(LANGS.map((l) => [l, P[l].back]));
   return `<!doctype html>
@@ -175,6 +176,7 @@ fs.writeFileSync(path.join(OUT, 'sitemap.xml'), `<?xml version="1.0" encoding="U
 for (const f of ['index.html', 'join.html', 'privacy.html', 'delete-account.html']) {
   const h = fs.readFileSync(path.join(OUT, f), 'utf8').replace(/<script[\s\S]*?<\/script>/g, '');
   if (AD.test(h)) throw new Error(f + ': ads wording: ' + h.match(AD)[0]);
+  if (APPS.test(h) || /data-apps|motoraathailand\.github\.io\/"/.test(h)) throw new Error(f + ': all-apps button/link found');
   if (ONLY.test(h)) throw new Error(f + ': country-restriction wording: ' + h.match(ONLY)[0]);
 }
 console.log('built docs/ (nammanthuk theme): index.html join.html privacy.html delete-account.html (optInLive=' + live + ')');

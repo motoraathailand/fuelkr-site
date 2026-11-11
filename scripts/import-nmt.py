@@ -62,6 +62,10 @@ newM, newT = [TI[1], MI[0], MI[1], MI[2], MI[4], Q], [TI[1], NOGUESS, TI[0], TI[
 for cls, new in (('mcard', newM), ('tcard', newT)):
     it = iter(new)
     body = re.sub(r'(<article class="%s rv"><span class="ti">)<svg.*?</svg>(</span>)' % cls, lambda m: m.group(1) + next(it) + m.group(2), body, flags=re.S)
+# owner 2026-11-11 (pt494u): no "see all apps" button anywhere on this site
+sub(r'\n\s*<a class="btn ghost lg apps"[^\n]*?</a>(?=\n\s*</div>)', '')   # hero: keep the one remaining button
+sub(r'<div class="cta2">(\s*<a class="btn ghost lg" href="#s1">)', r'<div class="cta2 one">\1')
+sub(r'\n\s*<div class="cta2 one center rv"[^\n]*?data-apps[^\n]*', '')    # closing section
 # all baked Thai text out: build fills ko from strings
 body = re.sub(r'(<(\w+)[^>]*\sdata-t="\w+"[^>]*>)[^<]*(</\2>)', r'\1\3', body)
 body = re.sub(r'(data-alt-label="\w+"[^>]*?)aria-label="[^"]*"', r'\1', body)
@@ -96,6 +100,7 @@ jsub(r'href="mailto:motoraathailand@gmail.com"', 'href="mailto:{{contact}}"')
 jsub(r'src="join-qr.svg"', 'src="img/join-qr.svg"')
 jsub(r'<a href="\./" data-t="back">', '<a href="index.html" data-lnk data-t="back">')
 jsub(r'<a href="privacy.html" data-t="privacy">', '<a href="privacy.html" data-lnk data-t="privacy">')
+jsub(r'\n\s*<a class="btn ghost apps"[^\n]*?data-apps[^\n]*', '')   # owner pt494u: no all-apps button
 jsub(r'(<a href="privacy.html" data-lnk data-t="privacy">[^<]*</a>)', r'\1<span aria-hidden="true">·</span><span><span data-t="ftOp"></span>: MOTOR AA</span>')   # provider name, as on the intro footer
 jb = re.sub(r'(<(\w+)[^>]*\sdata-t="\w+"[^>]*>)[^<]*(</\2>)', r'\1\3', jb)
 jb = re.sub(r'(<select id="lang") aria-label="[^"]*"', r'\1', jb)
