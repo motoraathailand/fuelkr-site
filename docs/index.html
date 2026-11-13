@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ko">
+<html lang="ko" class="js">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -8,15 +8,13 @@
 <meta name="robots" content="index, follow">
 <meta name="theme-color" content="#ffffff">
 <meta name="color-scheme" content="light">
-<link rel="canonical" href="https://motoraathailand.github.io/fuelkr-site/">
-<meta property="og:type" content="website"><meta property="og:site_name" content="주유소를부탁해"><meta property="og:locale" content="ko_KR"><meta property="og:locale:alternate" content="en_US">
-<link rel="alternate" hreflang="ko" href="https://motoraathailand.github.io/fuelkr-site/?lang=ko"><link rel="alternate" hreflang="en" href="https://motoraathailand.github.io/fuelkr-site/?lang=en"><link rel="alternate" hreflang="x-default" href="https://motoraathailand.github.io/fuelkr-site/">
+<link rel="canonical" href="https://motoraath.com/fuelkr-site/">
+<meta property="og:type" content="website"><meta property="og:site_name" content="주유소를부탁해"><meta property="og:locale" content="ko_KR">
+<link rel="alternate" hreflang="ko" href="https://motoraath.com/fuelkr-site/"><link rel="alternate" hreflang="x-default" href="https://motoraath.com/fuelkr-site/">
 <meta property="og:title" content="주유소를부탁해 — 내 주변 주유소, 공식 가격으로 한눈에"><meta property="og:description" content="한국석유공사 오피넷 공식 가격으로 내 주변 주유소를 가까운 순, 저렴한 순으로 비교해요. 지도와 길 안내, 즐겨찾기, 주유 기록, Android Auto까지.">
-<meta property="og:url" content="https://motoraathailand.github.io/fuelkr-site/"><meta property="og:image" content="https://motoraathailand.github.io/fuelkr-site/img/og.png">
+<meta property="og:url" content="https://motoraath.com/fuelkr-site/"><meta property="og:image" content="https://motoraath.com/fuelkr-site/img/og.png">
 <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="주유소를부탁해 — 내 주변 주유소, 공식 가격으로 한눈에"><meta name="twitter:description" content="한국석유공사 오피넷 공식 가격으로 내 주변 주유소를 가까운 순, 저렴한 순으로 비교해요. 지도와 길 안내, 즐겨찾기, 주유 기록, Android Auto까지.">
 <link rel="icon" href="img/icon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="img/icon-512.png">
-<script>/* decide the language first (no flash): ?lang= (ko|en; any other value, e.g. an old th/zh/hi link, gives English) > saved choice > phone language if Korean (or English) > English. Korean is baked into this file as the no-JS fallback; any other result keeps the page hidden (html.pl) until the script has swapped the text. */
-(function(){var L=["ko","en"],l='en';try{var m=/[?&]lang=(\w\w)/.exec(location.search),s=localStorage.getItem('fkr.site.lang'),a=navigator.languages&&navigator.languages.length?navigator.languages:[navigator.language],p='';if(m)l=L.indexOf(m[1])>-1?m[1]:'en';else if(L.indexOf(s)>-1)l=s;else for(var i=0;i<a.length;i++){p=String(a[i]||'').toLowerCase().split(/[-_]/)[0];if(L.indexOf(p)>-1){l=p;break}}}catch(e){}window.__L=l;document.documentElement.lang=l;document.documentElement.className='js'+(l==='ko'?'':' pl')})();</script>
 <link rel="preload" href="fonts/ibm-plex-sans-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="landing.css?v=5afdebf1fd">
 </head>
@@ -30,9 +28,7 @@
   <div class="hd-in">
     <a class="logo" href="index.html" aria-label="주유소를부탁해"><svg class="logo-drop" aria-hidden="true"><use href="#drop"/></svg><span>주유소를부탁해</span></a>
     <div class="hd-r">
-      <label class="lang"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 12h18M12 3c2.6 2.6 3.8 5.6 3.8 9s-1.2 6.4-3.8 9c-2.6-2.6-3.8-5.6-3.8-9S9.4 5.6 12 3z" fill="none" stroke="currentColor" stroke-width="1.8"/></svg><span class="sr" data-t="lang">언어</span>
-        <select id="lang"  data-alt-label="lang" aria-label="언어"><option value="ko" selected>한국어</option><option value="en">English</option></select></label>
-      <a class="gp sm" href="join.html?lang=ko"  data-gp aria-label="테스트 참여 Google Play"><svg aria-hidden="true"><use href="#gplay"/></svg><span><small data-t="gpSmall">테스트 참여</small><b>Google Play</b></span></a>
+      <a class="gp sm" href="join.html"  data-gp aria-label="테스트 참여 Google Play"><svg aria-hidden="true"><use href="#gplay"/></svg><span><small data-t="gpSmall">테스트 참여</small><b>Google Play</b></span></a>
     </div>
   </div>
   <div class="progress" id="progress" aria-hidden="true"></div>
@@ -49,7 +45,7 @@
       <p class="lead in-h" style="--h:3" data-t="lead">지금 있는 곳 반경 5km 안의 주유소를 한국석유공사 오피넷 가격으로 보여 드려요. 내 연료를 고르고, 가까운 순이나 저렴한 순으로 정렬하고, 바로 길 안내까지.</p>
       <div class="cta in-h" style="--h:4">
         <div class="stores">
-          <div class="store"><a class="badge" href="join.html?lang=ko"  data-gp aria-label="테스트 참여 Google Play"><img src="img/badges/gp-ko.png" data-badge="gp" alt="" width="565" height="168" decoding="async"></a><span class="store-cap go" data-t="gpCap">테스트 참여</span></div>
+          <div class="store"><a class="badge" href="join.html"  data-gp aria-label="테스트 참여 Google Play"><img src="img/badges/gp-ko.png" data-badge="gp" alt="" width="565" height="168" decoding="async"></a><span class="store-cap go" data-t="gpCap">테스트 참여</span></div>
           <div class="store"><span class="badge off" role="img"  data-alt-label="asAria" aria-label="App Store — 곧 출시 (아직 이용할 수 없음)"><img src="img/badges/as-ko.svg" data-badge="as" alt="" width="565" height="168" decoding="async"></span><span class="store-cap soon" data-t="asCap">곧 출시</span></div>
         </div>
       </div>
@@ -204,7 +200,7 @@
     <h2 class="rv" data-t="finalH">Google Play에서 먼저 테스트 참여</h2>
     <p class="rv" style="--d:.05s" data-t="finalP">쉬운 3단계로 끝나요 (3단계 모두 같은 Gmail). 궁금한 점은 이메일로 보내 주세요.</p>
     <div class="dl rv" style="--d:.1s"><div class="stores center">
-          <div class="store"><a class="badge" href="join.html?lang=ko"  data-gp aria-label="테스트 참여 Google Play"><img src="img/badges/gp-ko.png" data-badge="gp" alt="" width="565" height="168" decoding="async"></a><span class="store-cap go" data-t="gpCap">테스트 참여</span></div>
+          <div class="store"><a class="badge" href="join.html"  data-gp aria-label="테스트 참여 Google Play"><img src="img/badges/gp-ko.png" data-badge="gp" alt="" width="565" height="168" decoding="async"></a><span class="store-cap go" data-t="gpCap">테스트 참여</span></div>
           <div class="store"><span class="badge off" role="img"  data-alt-label="asAria" aria-label="App Store — 곧 출시 (아직 이용할 수 없음)"><img src="img/badges/as-ko.svg" data-badge="as" alt="" width="565" height="168" decoding="async"></span><span class="store-cap soon" data-t="asCap">곧 출시</span></div>
         </div></div>
   </div>
@@ -229,11 +225,11 @@
 </footer>
 
 <div class="dlbar" id="stick"><div class="dlbar-in">
-  <a class="dlb" href="join.html?lang=ko"  data-gp aria-label="테스트 참여 Google Play"><img src="img/badges/gp-ko.png" data-badge="gp" alt="" width="565" height="168" decoding="async"></a>
+  <a class="dlb" href="join.html"  data-gp aria-label="테스트 참여 Google Play"><img src="img/badges/gp-ko.png" data-badge="gp" alt="" width="565" height="168" decoding="async"></a>
   <span class="dlb dlb-off" role="img"  data-alt-label="asAria" aria-label="App Store — 곧 출시 (아직 이용할 수 없음)"><img src="img/badges/as-ko.svg" data-badge="as" alt="" width="565" height="168" decoding="async"><em class="dlb-tag" data-t="asCap">곧 출시</em></span>
 </div></div>
 <button type="button" class="totop" id="totop" hidden  data-alt-label="totop" aria-label="맨 위로"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 14l6-6 6 6" fill="none" stroke="currentColor" stroke-width="2.400" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-<script src="strings.js?v=f0f81c872f"></script>
-<script src="landing.js?v=21c1f54e7a"></script>
+<script src="strings.js?v=d98d20d71e"></script>
+<script src="landing.js?v=7b6683502b"></script>
 </body>
 </html>

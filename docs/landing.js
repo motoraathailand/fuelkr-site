@@ -1,15 +1,13 @@
 /* 주유소를부탁해 intro page script — adapted from the nammanthuk-site landing.js (owner 2026-11-11: same theme as nammanthuk).
-   Language crossfade, hero entrance, scroll reveal, counters, tilting phone, screenshot carousel, ripple, scroll progress, bottom bar.
+   Korean-only page (owner 2026-11-13): no language switch. Hero entrance, scroll reveal, counters, tilting phone, screenshot carousel, ripple, scroll progress, bottom bar.
    prefers-reduced-motion: no animation, no autoplay. */
 (function () {
   'use strict';
-  var LS = window.LS || {}, doc = document, root = doc.documentElement;
+  var doc = document, root = doc.documentElement;
   var rmq = window.matchMedia ? matchMedia('(prefers-reduced-motion: reduce)') : { matches: false }, reduce = rmq.matches;
   if (rmq.addEventListener) rmq.addEventListener('change', function (e) { reduce = e.matches; });
   var $ = function (s, r) { return (r || doc).querySelector(s); }, $$ = function (s, r) { return Array.prototype.slice.call((r || doc).querySelectorAll(s)); };
-  var lang = window.__L || 'en', ready = false;
-  var esc = function (s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
-  var shotLang = function (l) { return l; };   // real app screenshots exist in all 5 languages
+  var ready = false;
   function start() { root.classList.add('ready'); ready = true; $$('.hero .cnt').forEach(function (c) { runCount(c, 300); }); }
   if (doc.readyState === 'complete') requestAnimationFrame(start); else addEventListener('load', function () { requestAnimationFrame(start); });
   setTimeout(function () { if (!ready) start(); }, 2500);   // never leave the hero hidden if "load" is slow
@@ -27,28 +25,9 @@
   }
   $$('.cnt').forEach(function (c) { if (!c.closest('.hero')) c.textContent = fmt(c, c.hasAttribute('data-from') ? +c.getAttribute('data-from') : 0); });   // start from the "before" value; the real number is already in the HTML if JS is off
 
-  /* ---- language (crossfade) ---- */
-  function setShots(l) { $$('[data-shot]').forEach(function (img) { var src = 'img/' + shotLang(l) + '-' + img.getAttribute('data-shot') + '.webp?v=110'; if (img.getAttribute('src') !== src) img.src = src; }); }
-  function setBadges(l) { $$('[data-badge]').forEach(function (img) { var k = img.getAttribute('data-badge'), src = k === 'gp' ? 'img/badges/gp-' + l + '.png' : 'img/badges/as-' + (l === 'hi' ? 'en' : l) + '.svg'; if (img.getAttribute('src') !== src) img.src = src; }); }   // official store badges per language (Apple has no Hindi badge: English)
-  function setLinks(l) { $$('[data-gp], [data-lnk]').forEach(function (a) { a.setAttribute('href', a.getAttribute('href').split('?')[0] + '?lang=' + l); }); }   // join / policy pages open in the same language
-  function paintLang(l) {
-    var D = LS[l] || LS.en; if (!D) return; lang = l; root.lang = l;
-    $$('[data-t]').forEach(function (el) { var k = el.getAttribute('data-t'); if (k in D) el.textContent = D[k]; });
-    $$('[data-alt]').forEach(function (el) { var k = el.getAttribute('data-alt'); if (k in D) el.alt = D[k]; });
-    $$('[data-alt-label]').forEach(function (el) { var k = el.getAttribute('data-alt-label'); if (k in D) el.setAttribute('aria-label', D[k]); });
-    $$('[data-gp]').forEach(function (el) { el.setAttribute('aria-label', D.gpSmall + ' Google Play'); });
-    setShots(l); setLinks(l); setBadges(l); doc.title = D.title; var m = $('meta[name=description]'); if (m) m.setAttribute('content', D.desc);
-    var chip = function (q) { return '<span class="mq-chip">' + esc(q) + '</span>'; }, a = D.mq.slice(0, Math.ceil(D.mq.length / 2)), b = D.mq.slice(Math.ceil(D.mq.length / 2));
-    $('#mq1').innerHTML = a.concat(a).map(chip).join(''); $('#mq2').innerHTML = b.concat(b).map(chip).join('');
-    $('#mqList').innerHTML = D.mq.map(function (q) { return '<li>' + esc(q) + '</li>'; }).join('');
-    $('#lang').value = l;
-  }
-  function applyLang(l, quick) {
-    try { localStorage.setItem('fkr.site.lang', l); } catch (e) {}
-    if (reduce || quick) return paintLang(l);
-    root.classList.add('lsw'); setTimeout(function () { paintLang(l); requestAnimationFrame(function () { root.classList.remove('lsw'); }); }, 230);   // fade out, swap text, fade in (~450 ms in total)
-  }
-  $('#lang').addEventListener('change', function () { applyLang(this.value); });
+  /* ---- Korean-only assets (text is baked in the HTML; do not append ?lang=) ---- */
+  function setShots() { $$('[data-shot]').forEach(function (img) { var src = 'img/ko-' + img.getAttribute('data-shot') + '.webp?v=110'; if (img.getAttribute('src') !== src) img.src = src; }); }
+  function setBadges() { $$('[data-badge]').forEach(function (img) { var k = img.getAttribute('data-badge'), src = k === 'gp' ? 'img/badges/gp-ko.png' : 'img/badges/as-ko.svg'; if (img.getAttribute('src') !== src) img.src = src; }); }
 
   /* ---- scroll reveal ---- */
   $$('.stg').forEach(function (g) { $$(':scope > .rv', g).forEach(function (el, i) { el.style.setProperty('--d', (Math.min(i, 9) * 0.045).toFixed(3) + 's'); }); });
@@ -83,12 +62,13 @@
 
   /* ---- press ripple on buttons (skipped in reduced motion) ---- */
   doc.addEventListener('pointerdown', function (e) {
-    if (reduce) return; var b = e.target.closest && e.target.closest('.btn:not(.off), .lang, .totop'); if (!b) return;
+    if (reduce) return; var b = e.target.closest && e.target.closest('.btn:not(.off), .totop'); if (!b) return;
     var r = b.getBoundingClientRect(), s = doc.createElement('span'); s.className = 'rip'; s.style.left = (e.clientX - r.left) + 'px'; s.style.top = (e.clientY - r.top) + 'px';
     if (getComputedStyle(b).position === 'static') b.style.position = 'relative'; b.style.overflow = 'hidden'; b.appendChild(s); s.addEventListener('animationend', function () { s.remove(); }); setTimeout(function () { s.remove(); }, 900);
   }, { passive: true });
 
-  if (lang !== 'ko') paintLang(lang); else { $('#lang').value = 'ko'; setShots('ko'); setLinks('ko'); setBadges('ko'); }
-  root.classList.remove('pl');   // text is final: show the page (the CSS also un-hides it after 1.5 s if this script ever fails)
-  window.__landing = { setLang: function (l) { applyLang(l, true); }, reduce: function () { return reduce; } };
+  root.lang = 'ko';
+  setShots(); setBadges();
+  root.classList.remove('pl');   // text is baked in Korean; show the page (the CSS also un-hides it after 1.5 s if this script ever fails)
+  window.__landing = { reduce: function () { return reduce; } };
 })();

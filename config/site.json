@@ -1,6 +1,6 @@
 {
   "_about": "THE ONE PLACE for this site's links and facts. Edit here, then run: node scripts/build.mjs && node scripts/verify.mjs, commit, push.",
-  "siteUrl": "https://motoraathailand.github.io/fuelkr-site",
+  "siteUrl": "https://motoraath.com/fuelkr-site",
   "appName": "주유소를부탁해",
   "packageName": "com.motoraa.fuelkr",
   "groupEmail": "motoraa-testers@googlegroups.com",
