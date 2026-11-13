@@ -8,12 +8,12 @@
   "optInUrl": "https://play.google.com/apps/testing/com.motoraa.fuelkr",
   "installUrl": "https://play.google.com/store/apps/details?id=com.motoraa.fuelkr",
   "appStoreUrl": "",
-  "hubUrl": "https://motoraathailand.github.io/",
+  "hubUrl": "https://motoraath.com",
   "contactEmail": "motoraathailand@gmail.com",
   "provider": "MOTOR AA",
   "policyOperator": "MOTOR AA",
   "policyDate": "2026-11-11",
-  "optInLive": false,
+  "optInLive": true,
   "_optInLive": "false = the Play closed test is not published yet: steps 2-3 on join.html are dimmed with a note (step 1, the shared group, always works). Set true once Play Console > Testing > Closed testing (Korea) is 'Available to testers', then rebuild + push.",
   "_appStoreUrl": "empty = App Store badge is a disabled 'coming soon' badge (no link). Put the apps.apple.com URL here when the iOS app is live."
 }
